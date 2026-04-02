@@ -12,20 +12,18 @@
   "license": "ISC",
   "description": "ATS Resume Optimizer - Backend API",
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.x"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.0",
     "express": "^5.2.1",
-    "groq-sdk": "^1.1.2",
-    "multer": "^2.1.1"
+    "groq-sdk": "^1.1.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/multer": "^2.1.0",
     "@types/node": "^25.5.0",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
