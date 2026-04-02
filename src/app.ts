@@ -1,9 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { connectDB } from './lib/db';
 import { analyzeRouter } from './routes/analyze.route';
 import { optimizeRouter } from './routes/optimize.route';
 import { compileRouter } from './routes/compile.route';
+import { authRouter } from './routes/auth.route';
+import { resumeRouter } from './routes/resume.route';
 
 dotenv.config();
 
@@ -26,14 +29,21 @@ app.get('/health', (_req, res) => {
 app.use('/api/analyze', analyzeRouter);
 app.use('/api/optimize', optimizeRouter);
 app.use('/api/compile', compileRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/resumes', resumeRouter);
 
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Unhandled error:', err.message);
   res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+async function start() {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+start();
 
 export default app;
