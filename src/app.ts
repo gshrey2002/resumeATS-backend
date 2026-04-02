@@ -7,6 +7,7 @@ import { optimizeRouter } from './routes/optimize.route';
 import { compileRouter } from './routes/compile.route';
 import { authRouter } from './routes/auth.route';
 import { resumeRouter } from './routes/resume.route';
+import { requireAuth } from './middleware/auth.middleware';
 
 dotenv.config();
 
@@ -26,9 +27,9 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-app.use('/api/analyze', analyzeRouter);
-app.use('/api/optimize', optimizeRouter);
-app.use('/api/compile', compileRouter);
+app.use('/api/analyze', requireAuth, analyzeRouter);
+app.use('/api/optimize', requireAuth, optimizeRouter);
+app.use('/api/compile', requireAuth, compileRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/resumes', resumeRouter);
 
